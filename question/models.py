@@ -18,7 +18,7 @@ class Choice(models.Model):
         # return self.question.question + ' (' + self.title + ')' + (' correct !' if self.isCorrect else '')
 
     class Meta:
-        unique_together = ('question', 'title')
+        unique_together = (('question', 'title'))
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
