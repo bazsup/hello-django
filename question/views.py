@@ -21,23 +21,23 @@ class QuestionView(View):
         html += '<a href="/answer">ไปดูเฉลยหน่อยซิ กดเบา ๆ นะ</a>'
         return HttpResponse('Thanks <br/>' + html)
 
+    def get(self, request):
+        form = QuizForm()
+        questions = Question.objects.all()
+        question_list = []
+        question_keys = []
+        for question in questions:
+            choices_per_question = list(Choice.objects.filter(question=question))
+            prepare_data = {
+                'question_pk': question.pk,
+                'question': question.question,
+                'choices': choices_per_question
+            }
+            question_list.append(prepare_data)
+            question_keys.append(str(question.pk))
+        keys = ','.join(question_keys)
+        return render(request, 'question.html', { 'question_list': question_list, 'form': form, 'question_keys': keys })
 
-def question(request):
-    form = QuizForm()
-    questions = Question.objects.all()
-    question_list = []
-    question_keys = []
-    for question in questions:
-        choices_per_question = list(Choice.objects.filter(question=question))
-        prepare_data = {
-            'question_pk': question.pk,
-            'question': question.question,
-            'choices': choices_per_question
-        }
-        question_list.append(prepare_data)
-        question_keys.append(str(question.pk))
-    keys = ','.join(question_keys)
-    return render(request, 'question.html', { 'question_list': question_list, 'form': form, 'question_keys': keys })
 
 def answer(request):
     answers = list(Answer.objects.all())
