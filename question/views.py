@@ -7,24 +7,17 @@ from django.views import View
 
 class QuestionView(View):
     def post(self, request):
-        # print('length', request.POST)
-        length = request.POST.get('question_length')
-        # for x in list(request.POST):
-            # print(x)
-        # print('length', length)
-        # print('array', length.split(','))
-        # result = ''
-        for question_pk in length.split(','):
+        question_pks = request.POST.get('question_pks')
+        html = ''
+        for question_pk in question_pks.split(','):
             selected_choices = request.POST.getlist('question_id_' + question_pk)
             question = Question.objects.get(pk=question_pk)
-            # print('question', question)
             for selected_choice_pk in selected_choices:
                 choice = Choice.objects.get(pk=selected_choice_pk)
-                # print(question_pk, ': ', selected_choice_pk)
                 Answer.objects.create(question=question, selected=choice)
-            result += 'question' + question_pk + ': ' + str(request.POST.getlist('question_id_' + question_pk)) + '<br />'
-        result += '<a href="/answer">ไปดูเฉลยหน่อยซิ กดเบา ๆ นะ</a>'
-        return HttpResponse('Thanks <br/>' + result)
+            html += 'question' + question_pk + ': ' + str(request.POST.getlist('question_id_' + question_pk)) + '<br />'
+        html += '<a href="/answer">ไปดูเฉลยหน่อยซิ กดเบา ๆ นะ</a>'
+        return HttpResponse('Thanks <br/>' + html)
 
 
 def question(request):
