@@ -6,6 +6,7 @@ admin.site.register(Question)
 
 admin.site.register(Choice)
 
+
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     list_display = [

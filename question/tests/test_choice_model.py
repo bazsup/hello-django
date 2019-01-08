@@ -11,7 +11,7 @@ class ChoiceModelTest(TestCase):
 
         self.question = Question.objects.create(question=question_text)
         Choice.objects.create(question=self.question, title=choice_title)
-    
+
     def test_save_data(self):
         choice = Choice.objects.last()
 

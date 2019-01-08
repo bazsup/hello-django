@@ -1,6 +1,5 @@
 from django.urls import path
 
-from . import views
 from question import views as questionView
 from question.views import QuestionView
 

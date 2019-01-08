@@ -1,9 +1,8 @@
-import json
-
 from django.test import TestCase
 from django.urls import reverse
 
 from ..models import Choice, Question
+
 
 class QuestionGetViewTests(TestCase):
     def test_question_response_return_correctly(self):
@@ -17,7 +16,7 @@ class QuestionGetViewTests(TestCase):
             }
         ]
 
-        response = self.client.get(reverse('question'))        
+        response = self.client.get(reverse('question'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "1 + 1 = ?")
 
