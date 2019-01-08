@@ -44,5 +44,6 @@ def answer(request):
     return render(request, 'answer.html', { 'answers': answers })
 
 def reset_answer(request):
-    Answer.objects.all().delete()
+    if request.method == 'POST':
+        Answer.objects.all().delete()
     return redirect('/answer')
