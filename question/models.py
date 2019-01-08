@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 
+
 class Question(models.Model):
     question = models.CharField(max_length=200)
     
@@ -18,6 +19,7 @@ class Choice(models.Model):
 
     class Meta:
         unique_together = (('question', 'title'))
+
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
