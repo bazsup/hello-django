@@ -15,7 +15,6 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.title
-        # return self.question.question + ' (' + self.title + ')' + (' correct !' if self.isCorrect else '')
 
     class Meta:
         unique_together = (('question', 'title'))
@@ -28,11 +27,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.question.question + ' (' + self.selected.title + ') '
-
-    # @property
-    # def created(self):
-    #     return self.created
-
-    # @property
-    # def modified(self):
-    #     return self.modified
