@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-from django.utils import timezone
+# from django.utils import timezone
 
 
 class Question(models.Model):
@@ -8,6 +8,7 @@ class Question(models.Model):
     
     def __str__(self):
         return self.question
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
@@ -17,6 +18,9 @@ class Choice(models.Model):
     def __str__(self):
         return self.title
         # return self.question.question + ' (' + self.title + ')' + (' correct !' if self.isCorrect else '')
+
+    class Meta:
+        unique_together = ('question', 'title')
 
 
 class Answer(models.Model):

@@ -22,7 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('question/', questionView.question),
     path('question/answer/', QuestionView.as_view()),
-    path('answer', questionView.answer)
+    path('answer/', questionView.answer),
+    path('answer/reset/', questionView.reset_answer),
     
     
     # path('', include('question.urls')),

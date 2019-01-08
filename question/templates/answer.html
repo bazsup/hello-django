@@ -1,1 +1,60 @@
-<h1>Answer</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <style>
+        .question {
+            background: aquamarine;
+            padding: 10px;
+        }
+        .correct {
+            color: green;
+        }
+        .wrong {
+            color: red;
+        }
+    </style>
+    <title>Answer</title>
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h1 class="text-primary">Answer</h1>
+                        {% if not answers %}
+                            <div class="text-center">
+                                <p class="">แย่จังไม่เจอคำตอบ ลองไปทำดูหน่อยไหม</p>
+                                <a href="/question">ทำข้อสอบ</a>
+                            </div>
+                        {% endif %}
+                        <div>
+                            {% for answered in answers %}
+                            <div>
+                                <p class="question">
+                                <strong>question: {{ answered.question.pk }} )</strong>
+                                {{ answered.question.question }}
+                                </p>
+                                <p class="answer ">
+                                {{ answered.selected }}
+                                {% if answered.selected.isCorrect %}
+                                    <span class="correct">คำตอบนี้ถูก!!</span>
+                                {% else %}
+                                    <span class="wrong">คำตอบนี้ผิดดดดด</span>
+                                {% endif %}
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a class="btn btn-danger" href="/answer/reset">ลบคำตอบในระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

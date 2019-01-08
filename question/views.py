@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Question, Answer, Choice
 from .forms import QuizForm
@@ -7,55 +7,47 @@ from django.views import View
 
 class QuestionView(View):
     def post(self, request):
-        print('************************')
-        # question_length = eval(request.POST.question_length)
-
-        print('length', request.POST)
+        # print('length', request.POST)
         length = request.POST.get('question_length')
-        for x in list(request.POST):
-            print(x)
-        print('length', length)
-        print('array', length.split(','))
-        result = ''
-        for key in length.split(','):
-            print('question', key, ': ', str(request.POST.getlist('question_id_' + key)))
-            result += 'question' + key + ': ' + str(request.POST.getlist('question_id_' + key)) + '<br />'
-        print('************************')
+        # for x in list(request.POST):
+            # print(x)
+        # print('length', length)
+        # print('array', length.split(','))
+        # result = ''
+        for question_pk in length.split(','):
+            selected_choices = request.POST.getlist('question_id_' + question_pk)
+            question = Question.objects.get(pk=question_pk)
+            # print('question', question)
+            for selected_choice_pk in selected_choices:
+                choice = Choice.objects.get(pk=selected_choice_pk)
+                # print(question_pk, ': ', selected_choice_pk)
+                Answer.objects.create(question=question, selected=choice)
+            result += 'question' + question_pk + ': ' + str(request.POST.getlist('question_id_' + question_pk)) + '<br />'
+        result += '<a href="/answer">ไปดูเฉลยหน่อยซิ กดเบา ๆ นะ</a>'
         return HttpResponse('Thanks <br/>' + result)
 
 
 def question(request):
-    if request.method == "POST":
-        
-        form = QuizForm(request.POST)
-        print('***** valid form ********')
-        print(form)
-        # print(form.cleaned_data)
-        print('*************')
-
-        if form.is_valid():
-            print('isValid')
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-        return HttpResponse('thanks !' if form.is_valid() else 'Invalid form')
-    else:
-        form = QuizForm()
-        questions = Question.objects.all()
-        question_list = []
-        question_keys = []
-        for question in questions:
-            choices_per_question = list(Choice.objects.filter(question=question))
-            prepare_data = {
-                'question_pk': question.pk,
-                'question': question.question,
-                'choices': choices_per_question
-            }
-            question_list.append(prepare_data)
-            question_keys.append(str(question.pk))
-        keys = ','.join(question_keys)
-        print(keys)
-        return render(request, 'question.html', { 'question_list': question_list, 'form': form, 'question_keys': keys })
+    form = QuizForm()
+    questions = Question.objects.all()
+    question_list = []
+    question_keys = []
+    for question in questions:
+        choices_per_question = list(Choice.objects.filter(question=question))
+        prepare_data = {
+            'question_pk': question.pk,
+            'question': question.question,
+            'choices': choices_per_question
+        }
+        question_list.append(prepare_data)
+        question_keys.append(str(question.pk))
+    keys = ','.join(question_keys)
+    return render(request, 'question.html', { 'question_list': question_list, 'form': form, 'question_keys': keys })
 
 def answer(request):
-    return render(request, 'answer.html')
+    answers = list(Answer.objects.all())
+    return render(request, 'answer.html', { 'answers': answers })
+
+def reset_answer(request):
+    Answer.objects.all().delete()
+    return redirect('/answer')
