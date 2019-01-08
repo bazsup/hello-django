@@ -1,9 +1,11 @@
+import json
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views import View
+
 from .models import Question, Answer, Choice
 from .forms import QuizForm
-import json
-from django.views import View
 
 class QuestionView(View):
     def post(self, request):

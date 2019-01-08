@@ -15,16 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from question import views as questionView
-from question.views import QuestionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('question/', questionView.question),
-    path('question/answer/', QuestionView.as_view()),
-    path('answer/', questionView.answer),
-    path('answer/reset/', questionView.reset_answer),
-    
-    
-    # path('', include('question.urls')),
+    path('', include('question.urls')),
 ]

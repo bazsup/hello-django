@@ -1,7 +1,5 @@
 from django.conf import settings
 from django.db import models
-# from django.utils import timezone
-
 
 class Question(models.Model):
     question = models.CharField(max_length=200)
@@ -22,10 +20,19 @@ class Choice(models.Model):
     class Meta:
         unique_together = ('question', 'title')
 
-
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     selected = models.ForeignKey(Choice, on_delete=models.CASCADE, default=None)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.question.question + ' (' + self.selected.title + ') '
+
+    # @property
+    # def created(self):
+    #     return self.created
+
+    # @property
+    # def modified(self):
+    #     return self.modified

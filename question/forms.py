@@ -1,5 +1,6 @@
-from django import forms
 import json
+
+from django import forms
 
 from .models import Question, Choice, Answer
 
