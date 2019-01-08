@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = [
-    # django app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +40,6 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APP = [
-    # local app
     'question',
 ]
 
