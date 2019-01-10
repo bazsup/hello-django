@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 
 from .models import Question, Answer, Choice
-from .forms import QuizForm
+from .forms import QuestionForm, QuestionFormset
 
 
 class QuestionView(View):
@@ -23,8 +23,9 @@ class QuestionView(View):
         return HttpResponse('Thanks <br/>' + html)
 
     def get(self, request):
-        form = QuizForm()
         questions = Question.objects.all()
+        form = QuestionFormset()
+        # form = QuestionForm(questions=questions)
         question_list = []
         question_keys = []
         for question in questions:
