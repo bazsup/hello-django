@@ -1,6 +1,8 @@
 version: "3"
 
 services:
+  db:
+    image: postgres:11.1
   web:
     build:
       context: .
@@ -10,3 +12,5 @@ services:
     ports:
       - "8000:8000"
     command: ./entrypoint.sh
+    depends_on:
+      - db
