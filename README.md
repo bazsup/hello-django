@@ -18,6 +18,13 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+### Create superuser
+
+- create superuser for create admin
+```
+python manage.py createsuperuser
+```
+
 ## Testing
 
 - run test
@@ -46,4 +53,11 @@ coverage run manage.py test
 show report
 ```
 coverage report
+```
+
+## Docker
+
+start this application by using
+```
+docker-compose up
 ```
