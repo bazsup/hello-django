@@ -35,6 +35,7 @@ jobs:
           command: |
             pip install -r requirements.txt
             cd hello-django
+            export DATABASE_HOST=localhost
             python manage.py test
 
 workflows:
