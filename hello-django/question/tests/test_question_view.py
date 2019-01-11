@@ -8,11 +8,14 @@ class QuestionGetViewTests(TestCase):
     def test_question_response_return_correctly(self):
         question = Question.objects.create(question='1 + 1 = ?')
         choice = Choice.objects.create(question=question, title='หนึ่ง')
+
+        last_question = Question.objects.last()
+        last_choice = Choice.objects.last()
         expected = [
             {
-                'question_pk': 1,
-                'question': '1 + 1 = ?',
-                'choices': [choice]
+                'question_pk': last_question.pk,
+                'question': last_question.question,
+                'choices': [last_choice]
             }
         ]
 
