@@ -62,7 +62,8 @@ jobs:
       - run:
           name: Deploy to Server
           command: |
-            cd hello-django
+            ssh-keyscan -H 35.243.84.252 >> ~/.ssh/known_hosts
+            ssh supawit.ruen-circleci@35.247.187.238 "cd hello-django && docker-compose -f docker-compose.prod.yml up -d"
 
 workflows:
   version: 2
