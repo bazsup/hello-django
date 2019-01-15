@@ -61,3 +61,8 @@ start this application by using
 ```
 docker-compose up
 ```
+
+## Generate ssh-key
+```
+ssh-keygen -t rsa -C "<your@email>"
+```
