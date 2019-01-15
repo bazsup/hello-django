@@ -67,9 +67,8 @@ jobs:
               cd ~/hello-django &&
               git pull &&
               ls &&
-              PROJECT_PATH=~/hello-django/docker-compose.prod.yml &&
-              docker-compose -f $PROJECT_PATH pull &&
-              docker-compose -f $PROJECT_PATH up -d
+              docker-compose -f ./docker-compose.prod.yml pull &&
+              docker-compose -f ./docker-compose.prod.yml up -d
             "
 
 workflows:
