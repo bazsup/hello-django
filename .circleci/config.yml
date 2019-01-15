@@ -40,7 +40,7 @@ jobs:
   build_docker_image:
     working_directory: ~/app
     docker:
-      - image: python:3.6.8
+      - image: circleci/python:3.6.8
     steps:
       - attach_workspace:
           at: .
