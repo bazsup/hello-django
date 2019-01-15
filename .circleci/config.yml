@@ -63,7 +63,7 @@ jobs:
           name: Deploy to Server
           command: |
             ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
-            ssh $SSH_USER@$SSH_HOST "chmod +x ~/hello-django/deploy.sh && ~/hello-django/deploy.sh"
+            ssh $SSH_USER@$SSH_HOST "sudo chmod +x ~/hello-django/deploy.sh && ~/hello-django/deploy.sh"
 
 workflows:
   version: 2
