@@ -51,7 +51,7 @@ jobs:
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker build -t 59130500137/hello-django:stable .
             docker push 59130500137/hello-django:stable
-  build_docker_image:
+  deploy:
     working_directory: ~/app
     docker:
       - image: circleci/python:3.6.8
@@ -81,3 +81,6 @@ workflows:
       - build_docker_image:
           requires:
             - unit_tests
+      - deploy:
+          requires:
+            - build_docker_image
