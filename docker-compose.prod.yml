@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:11.1
+  web:
+    image: 59130500137/hello-django:stable
+    ports:
+      - "8000:8000"
+    command: ./entrypoint.sh
+    depends_on:
+      - db
