@@ -37,10 +37,24 @@ jobs:
             cd hello-django
             export DATABASE_HOST=localhost
             python manage.py test
+  build_docker_image:
+    working_directory: ~/app
+    docker:
+      - image: python:3.6.8
+    steps:
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - run:
+          name: Build Stable Image
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t 59130500137/hello-django:stable .
+            docker push 59130500137/hello-django:stable
 
 workflows:
   version: 2
-  pipeline:
+  hello-django_pipeline:
     jobs:
       - checkout_code
       - python_dependencies:
@@ -49,5 +63,6 @@ workflows:
       - unit_tests:
           requires:
             - python_dependencies
-
-          
+      - build_docker_image:
+          requires:
+            - unit_tests
