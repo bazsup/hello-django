@@ -63,7 +63,7 @@ jobs:
           name: Deploy to Server
           command: |
             ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
-            ssh $SSH_USER@$SSH_HOST "cd hello-django && docker-compose -f docker-compose.prod.yml up -d"
+            ssh $SSH_USER@$SSH_HOST "docker-compose -f ~/hello-django/docker-compose.prod.yml up -d"
 
 workflows:
   version: 2
